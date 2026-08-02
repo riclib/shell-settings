@@ -1,7 +1,5 @@
 # Shell Settings — Omarchy Plugin
 
-![Shell Settings preview](preview.png)
-
 A settings panel for [Omarchy](https://github.com/AyushKr2003/omarchy) that lets
 you configure your shell without hand-editing `~/.config/omarchy/shell.json`.
 Manage plugins, adjust idle/lock timings, and arrange the bar — all from a
