@@ -48,6 +48,21 @@ omarchy-shell shell rescanPlugins
 omarchy plugin enable shell.settings
 ```
 
+## Removal
+
+Uninstall with the Omarchy CLI:
+
+```bash
+omarchy plugin remove shell.settings
+```
+
+Or remove it manually:
+
+```bash
+rm -rf ~/.config/omarchy/plugins/shell.settings
+omarchy-shell shell rescanPlugins
+```
+
 ## Usage
 
 Open the panel through the shell's generic plugin IPC:
@@ -140,9 +155,10 @@ their settings open from the **Bar** section the same way.
 ## Requirements
 
 - Omarchy shell (with the `omarchy-shell` CLI and plugin registry)
-- Qt 6.11+
+- [Quickshell](https://quickshell.org/) (provided by Omarchy)
+- Qt 6.11+ with QtQuick and QtQuick.Controls
 - The `shell.settings` plugin itself is written in QML; it needs no
-  compilation or runtime dependencies beyond Omarchy's shell.
+  compilation or external dependencies beyond what Omarchy's shell ships.
 
 ## Development
 
@@ -167,4 +183,4 @@ omarchy plugin validate config/omarchy/plugins/shell.settings
 
 ## License
 
-MIT © [AyushKr2003](https://github.com/AyushKr2003)
+MIT © [AyushKr2003](https://github.com/AyushKr2003) — see [LICENSE](LICENSE).
