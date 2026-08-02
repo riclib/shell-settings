@@ -115,97 +115,24 @@ registry, so it updates `~/.config/omarchy/shell.json` directly — no custom
 
 Any plugin can expose editable settings by declaring a `settings` object in its
 `manifest.json`. The panel reads the manifest, fills the form from `defaults`,
-and writes changes back to `shell.json` under the plugin's id.
+and writes changes back to `shell.json` under the plugin's id:
 
 ```json
 {
   "settings": {
-    "defaults": {
-      "greeting": "hello",
-      "loud": true,
-      "volume": 0.7,
-      "mode": "dark",
-      "features": ["clock"]
-    },
+    "defaults": { "example": true },
     "schema": [
-      {
-        "key": "greeting",
-        "type": "string",
-        "label": "Greeting",
-        "description": "Shown in the status line"
-      },
-      {
-        "key": "loud",
-        "type": "boolean",
-        "label": "Loud mode"
-      },
-      {
-        "key": "volume",
-        "type": "number",
-        "label": "Volume",
-        "min": 0,
-        "max": 1,
-        "step": 0.01
-      },
-      {
-        "key": "mode",
-        "type": "enum",
-        "label": "Color mode",
-        "options": ["light", "dark", "auto"]
-      },
-      {
-        "key": "features",
-        "type": "multiselect",
-        "label": "Features",
-        "options": ["clock", "weather", "tray"]
-      }
+      { "key": "example", "type": "boolean", "label": "Example" }
     ]
   }
 }
 ```
 
-### Field types
-
-| Type          | Widget          | Notes                                                        |
-| ------------- | --------------- | ------------------------------------------------------------ |
-| `string`      | Text field      | Default type when `type` is missing.                          |
-| `boolean`     | Toggle         | Label/description are shown inline next to the switch.         |
-| `integer`     | Number field    | Respects `min`, `max`, and `step`.                             |
-| `number`      | Slider          | Respects `min`, `max`, and `step`.                            |
-| `enum`        | Dropdown        | Picks one value from `options`.                                |
-| `multiselect` | Multi-select    | Picks several values from `options` or `optionsCommand`.       |
-
-### Field properties
-
-| Property          | Applies to               | Purpose                                                      |
-| ----------------- | ------------------------ | ------------------------------------------------------------ |
-| `key`             | all                      | Value name stored in `shell.json`.                            |
-| `type`            | all                      | One of `string`, `boolean`, `integer`, `number`, `enum`, `multiselect`. |
-| `label`           | all                      | Field name shown to the user.                                 |
-| `description`     | non-boolean             | Helper text under the label.                                  |
-| `defaultValue`    | all                      | Fallback used when the entry and `defaults` have no value.    |
-| `min` / `max`     | `integer`, `number`      | Bounds for the number field / slider.                        |
-| `step`            | `integer`, `number`      | Increment for the number field / slider.                     |
-| `options`         | `enum`, `multiselect`    | Static list of choices.                                      |
-| `optionsCommand`  | `multiselect`            | Static `options` can be replaced by a command — see below.   |
-| `placeholderText` | `multiselect`            | Search box hint.                                             |
-| `emptyText`       | `multiselect`            | Message when no options match.                               |
-| `noSelectionText` | `multiselect`            | Message when nothing is selected.                            |
-
-### Dynamic options
-
-A `multiselect` field can source its options from a command instead of a static
-`options` list. The command's first argv entry is resolved relative to the
-plugin's directory (no absolute paths, no `..` segments):
-
-```json
-{
-  "key": "layouts",
-  "type": "multiselect",
-  "label": "Layouts",
-  "optionsCommand": ["scripts/list-layouts.sh", "--json"]
-}
-```
+The full schema — field types (`string`, `boolean`, `integer`, `number`,
+`enum`, `multiselect`), options, and dynamic `optionsCommand` — is defined by
+the Omarchy shell itself in
+[`docs/omarchy-shell.md`](https://github.com/AyushKr2003/omarchy/blob/main/docs/omarchy-shell.md)
+and `PluginRegistry.qml`; this panel renders whatever schema it declares.
 
 Bar widgets can keep using `barWidget.schema` or a built-in `settingsForm`;
 their settings open from the **Bar** section the same way.
