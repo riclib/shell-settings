@@ -2,7 +2,13 @@
 
 Third-party settings panel for Omarchy shell configuration.
 
-Install it at:
+Install it from git (recommended):
+
+```bash
+omarchy plugin add https://github.com/AyushKr2003/shell-settings --enable --yes
+```
+
+Or manually, by placing it at:
 
 ```text
 ~/.config/omarchy/plugins/shell.settings/
